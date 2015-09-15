@@ -10,4 +10,4 @@ before_install:
 
 script:
   - pip install git+https://github.com/rabix/rabix
-  - script.sh
+  - ./script.sh
