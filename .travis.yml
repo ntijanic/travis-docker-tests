@@ -9,6 +9,5 @@ before_install:
   - docker pull busybox
 
 script:
-  - which bash
   - pip install git+https://github.com/rabix/rabix
-  - script.sh
+  - ./script.sh
