@@ -9,5 +9,8 @@ before_install:
   - docker pull busybox
 
 script:
-  - pip install git+https://github.com/rabix/rabix
-  - ./script.sh
+  - git clone https://github.com/common-workflow-language/common-workflow-language
+  - git clone -b feature/tests https://github.com/common-workflow-language/workflows
+  - pip install ./common-workflow-language/reference
+  - cd workflows/tools
+  - python -m cwltool samtools-sort.cwl samtools-sort.inputs.json
