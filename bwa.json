@@ -1,0 +1,129 @@
+{
+    "id": "https://rabix-vayu.sbgenomics.com:11180/v1/apps/luka_stage/bwa/bwa-mem/3/",
+    "class": "CommandLineTool",
+    "@context": "https://github.com/common-workflow-language/common-workflow-language/blob/draft-1/specification/tool-description.md",
+    "label": "BWA mem",
+    "description": "",
+    "owner": [],
+    "contributor": [],
+    "requirements": [
+        {
+            "dockerPull": "lh3lh3/bwa",
+            "class": "DockerRequirement"
+        },
+        {
+            "value": 1,
+            "class": "CPURequirement"
+        },
+        {
+            "value": 1000,
+            "class": "MemRequirement"
+        }
+    ],
+    "inputs": [
+        {
+            "type": [
+                "File"
+            ],
+            "description": "",
+            "label": "Reference",
+            "inputBinding": {
+                "sbg:cmdInclude": "true",
+                "valueFrom": {
+                    "engine": "#cwl-js-engine",
+                    "script": "$self.path.split('.').slice(0, -1).join('.')",
+                    "class": "Expression"
+                },
+                "separate": true,
+                "position": 2
+            },
+            "sbg:category": "",
+            "id": "#reference"
+        },
+        {
+            "type": [
+                {
+                    "items": "File",
+                    "type": "array"
+                }
+            ],
+            "description": "",
+            "label": "Reads",
+            "inputBinding": {
+                "sbg:cmdInclude": "true",
+                "separate": true,
+                "position": 3
+            },
+            "sbg:category": "",
+            "id": "#reads"
+        },
+        {
+            "type": [
+                "null",
+                "int"
+            ],
+            "description": "",
+            "label": "Minimum seed lengts (-m)",
+            "inputBinding": {
+                "prefix": "-k",
+                "sbg:cmdInclude": "true",
+                "separate": true,
+                "position": 1
+            },
+            "sbg:category": "",
+            "id": "#minimum_seed_length"
+        },
+        {
+            "type": [
+                "null",
+                {
+                    "items": "float",
+                    "type": "array"
+                }
+            ],
+            "description": "Specify the mean, standard deviation (10% of the mean if absent), max (4 sigma from the mean if absent) and min of the insert size distribution. FR orientation only.",
+            "label": "Mean/std/max/min",
+            "inputBinding": {
+                "prefix": "-I",
+                "sbg:cmdInclude": "true",
+                "separate": true,
+                "position": 1,
+                "itemSeparator": ","
+            },
+            "sbg:category": "",
+            "id": "#mean_std_max_min",
+            "schema": [
+                "null",
+                {
+                    "items": "float",
+                    "type": "array"
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": [
+                "null",
+                "File"
+            ],
+            "id": "#sam",
+            "outputBinding": {
+                "glob": "*.sam",
+                "metadata": {
+                    "file_type": "sam"
+                }
+            }
+        }
+    ],
+    "baseCommand": [
+        "bwa",
+        "mem"
+    ],
+    "stdin": "",
+    "stdout": "aligned.sam",
+    "successCodes": [],
+    "temporaryFailCodes": [],
+    "arguments": []
+}
+
